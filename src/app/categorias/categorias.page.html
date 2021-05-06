@@ -10,5 +10,13 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item  button   *ngFor="let item of itens; let i = index">
+        <ion-thumbnail slot="start">
+          <img src="{{bucketUrl}}">
+          <!-- "{{bucketUrl}}/cat/{{item.id}}.jpg" -->
+        </ion-thumbnail>
+        <ion-label>{{item.nome}}</ion-label>
+      </ion-item>
+  </ion-list>
 </ion-content>
