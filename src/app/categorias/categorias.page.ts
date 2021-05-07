@@ -17,7 +17,8 @@ export class CategoriasPage implements OnInit {
   ngOnInit() {
     this.categoriaService.findAll().subscribe( response=>{
       this.itens=response;
-    });
+    },
+    error=>{});
   }
 
 }

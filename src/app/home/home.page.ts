@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
+import { CredenciaisDTO } from 'src/models/credenciais.dto';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,14 @@ import { MenuController, NavController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   public home: string;
-
-  constructor(private activatedRoute: ActivatedRoute, public navCtrl: NavController, public menu: MenuController) { }
+  creds : CredenciaisDTO={
+    email:"",
+    senha:""
+  };
+  constructor(private activatedRoute: ActivatedRoute,
+     public navCtrl: NavController, 
+     public menu: MenuController,
+     public auth: AuthService) { }
 
   ionViewWillEnter() {
     this.menu.enable(false);
@@ -22,6 +30,10 @@ export class HomePage implements OnInit {
     this.home = this.activatedRoute.snapshot.paramMap.get('id');
   }
   login(){
-    this.navCtrl.navigateForward("/categorias");
+    this.auth.authenticate(this.creds)
+      .subscribe(response=>{
+        console.log(response.headers.get('Authorization'));
+        this.navCtrl.navigateForward("/categorias");
+      })
   }
 }
