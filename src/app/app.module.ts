@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/auth.service';
+import { StorageService } from 'src/services/storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,8 @@ import { AuthService } from 'src/services/auth.service';
        useClass: IonicRouteStrategy },
     CategoriaService,
     ErrorInterceptorProvider,
-    AuthService],
+    AuthService,
+    StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
