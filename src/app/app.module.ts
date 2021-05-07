@@ -4,13 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
+import { ClienteService } from 'src/services/domain/cliente.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +25,8 @@ import { StorageService } from 'src/services/storage.service';
     CategoriaService,
     ErrorInterceptorProvider,
     AuthService,
-    StorageService],
+    StorageService,
+  ClienteService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
