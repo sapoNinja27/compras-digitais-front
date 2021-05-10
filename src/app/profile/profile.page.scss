@@ -8,7 +8,15 @@ ion-menu-button{
 .tollbar{
     --background:rgb(171, 204, 248);
 }
-img{
+ion-avatar{
+    width:60%;
+    height:35%;
     border-radius: 100%;
     margin: 25px auto 0 auto;
+}
+h2{
+    text-align: center;
+}
+p{
+    text-align: center;
 }

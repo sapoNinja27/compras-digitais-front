@@ -10,7 +10,7 @@ import { CategoriaService } from 'src/services/domain/categoria.service';
 })
 export class CategoriasPage implements OnInit {
   itens:CategoriaDTO[];
-  bucketUrl: string =API_CONFIG.buckerBaseUrl;
+  bucketUrl: string =API_CONFIG.bucketBaseUrl;
   constructor(public categoriaService : CategoriaService) { }
 
  

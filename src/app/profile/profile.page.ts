@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { StorageService } from 'src/services/storage.service';
@@ -23,11 +24,22 @@ export class ProfilePage implements OnInit {
         this.cliente=response;
         console.log(this.cliente)
         //TODO buscar imagem
+        // getImageIfExists();
       },
       error=>{
 
       })
     }
+  }
+  getImageIfExists(){
+    this.clienteService.getImageFromBucket(this.cliente.id)
+    .subscribe(response=>{
+      this.cliente.imageUrl=`${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
+      this.sourceImg=this.cliente.imageUrl;
+    },
+    error=>{
+
+    });
   }
 
 }
