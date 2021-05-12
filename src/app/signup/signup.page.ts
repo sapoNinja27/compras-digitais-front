@@ -33,7 +33,7 @@ export class SignupPage implements OnInit {
     }
     this.cep=value;
   }
-  formatar(value:string){
+  formatarDoc(value:string){
     this.cpfOuCnpjInput ="";
     value =  ""+value.replace(/[^0-9]+/g, "");
     if(this.tipo=="Cpf"){
@@ -47,7 +47,6 @@ export class SignupPage implements OnInit {
         value=value.substring(0,11)+"-"+value.substring(11);
       }
     }else if(this.tipo="Cnpj"){
-      // 30.522.343/0001-87
       if(value.length>1){
         value=value.substring(0,2)+"."+value.substring(2);
       }
