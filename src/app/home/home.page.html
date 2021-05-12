@@ -10,9 +10,9 @@
     </ion-item>
     <ion-item>
       <ion-label  position="stacked">Senha</ion-label>
-      <ion-input [(ngModel)]="creds.senha" name="senha" type="password"> </ion-input>
+      <ion-input clearOnEdit="false" [(ngModel)]="creds.senha" name="senha" type="password"> </ion-input>
     </ion-item>
     <ion-button  expand="block"  (click)="login()">Entrar</ion-button>
   </form>
-  <ion-button expand="block" fill="outline">Cadastrar</ion-button>
+  <ion-button expand="block" (click)="signup()" fill="outline">Cadastrar</ion-button>
 </ion-content>

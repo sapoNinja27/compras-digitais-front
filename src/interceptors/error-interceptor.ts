@@ -3,7 +3,8 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
 import { Observable, throwError } from "rxjs";
 import { catchError } from 'rxjs/operators';
 import { StorageService } from "src/services/storage.service";
-import { AlertController, NavController } from "@ionic/angular";
+import { AlertController } from "@ionic/angular";
+import { Router } from "@angular/router";
  
  
 @Injectable()
@@ -11,7 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor{
  
     constructor(public storage: StorageService,
         public alertCtrl: AlertController,
-        public navCtrl: NavController){ }
+        private router: Router){ }
  
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
         return next.handle(req)
@@ -19,18 +20,13 @@ export class ErrorInterceptor implements HttpInterceptor{
                     catchError(error => {
                        if( !error.status ){
                             error = JSON.parse(error);
-                            console.log("tinha stauts")
                         }
                         let status=error.status;
-                        console.log(error)
                         error=error.error;
                         if( !error.status ){
                             error = JSON.parse(error);
-                            console.log("tinha stauts")
                         }
-                        console.log(error)
                         error=JSON.stringify(error);
-                        console.log(error)
                         let msgs=error.split('"');
                         let msg=""
                         for(let i = 0; i<msgs.length;i++){
@@ -46,6 +42,10 @@ export class ErrorInterceptor implements HttpInterceptor{
 
                             case 403: 
                                 this.handle403();
+                            break;
+
+                            case 404: 
+                                this.handle404();
                             break;
 
                             default:
@@ -77,8 +77,24 @@ export class ErrorInterceptor implements HttpInterceptor{
                 {
                     text:'Aceitar',
                     handler: () => {
-                        this.navCtrl.navigateRoot("/home");
+                        this.router.navigateByUrl("/home");
                         this.storage.setLocalUser(null);
+                    }
+                }
+            ]
+        });
+        (await alert).present();
+    }
+    async handle404(){
+        let alert=this.alertCtrl.create({
+            header: 'Serciço indisponivel',
+            message: 'Voce esta tentando acessar algo que não existe ou nao esta disponivel no momento, por favor tente mais tarde',
+            backdropDismiss: false,
+            buttons:[
+                {
+                    text:'Aceitar',
+                    handler: () => {
+                        this.router.navigateByUrl("/profile");
                     }
                 }
             ]

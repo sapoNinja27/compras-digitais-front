@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
-import { NavController } from '@ionic/angular';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { StorageService } from 'src/services/storage.service';
 
@@ -14,8 +13,7 @@ export class ProfilePage implements OnInit {
   cliente : ClienteDTO;
   sourceImg:string;
   constructor(public storage: StorageService,
-    public clienteService: ClienteService ,
-    public navCtrl: NavController) { }
+    public clienteService: ClienteService ) { }
 
   ngOnInit() {
     this.sourceImg="assets/avatar-blank.jpg";

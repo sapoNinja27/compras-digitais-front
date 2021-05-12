@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MenuController, NavController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MenuController} from '@ionic/angular';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
 import { AuthService } from 'src/services/auth.service';
 
@@ -15,25 +15,35 @@ export class HomePage implements OnInit {
     email:"",
     senha:""
   };
-  constructor(private activatedRoute: ActivatedRoute,
-     public navCtrl: NavController, 
+  constructor(private activatedRoute: ActivatedRoute, 
      public menu: MenuController,
-     public auth: AuthService) { }
+     public auth: AuthService,
+     private router: Router) { }
 
-  ionViewWillEnter() {
-    this.menu.enable(false);
-  }
   ionViewDidLeave() {
     this.menu.enable(true);
   }
+  ionViewDidEnter() {
+    if(this.auth.checkUser()){
+      this.auth.refreshToken()
+        .subscribe(response=>{
+          this.auth.successfulLogin(response.headers.get("Authorization"))
+          this.router.navigateByUrl("/categorias");
+        })
+    }
+  }
   ngOnInit() {
+    this.menu.enable(false);
     this.home = this.activatedRoute.snapshot.paramMap.get('id');
   }
   login(){
     this.auth.authenticate(this.creds)
       .subscribe(response=>{
         this.auth.successfulLogin(response.headers.get("Authorization"))
-        this.navCtrl.navigateForward("/categorias");
+        this.router.navigateByUrl("/categorias");
       })
+  }
+  signup(){
+    this.router.navigateByUrl("/signup"); 
   }
 }
