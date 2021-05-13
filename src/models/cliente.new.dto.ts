@@ -1,20 +1,17 @@
-export interface ClienteDTO {
-    id: string,
+export interface ClienteNewDTO {
     nome: string,
     email: string,
-    senha:string,
     cpfOuCnpj:string,
-    tipo:string,
+    tipo:number,
+    senha:string,
     logradouro:string,
-	private String numero;
-	private String complemento;
-	private String bairro;@NotEmpty(message = "Preenchimento obrigatório")
-	private String cep;
-    private String telefone1;
-	private String telefone2;
-	private String telefone3;
-	
-	private Integer cidadeId;
+    numero:string,
+    complemento:string,
+    bairro:string,
+    cep:string,
+	telefone1 : string,
+	telefone2? : string[2],
+	cidadeId: string,
     estado:string,
     imageUrl?: string
 }

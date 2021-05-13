@@ -12,6 +12,8 @@ import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
+import { EstadoService } from 'src/services/domain/estado.service';
+import { CidadeService } from 'src/services/domain/cidade.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +25,9 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
   providers: [
     { provide: RouteReuseStrategy,
        useClass: IonicRouteStrategy },
-    CategoriaService,
+       CategoriaService,
+       EstadoService,
+       CidadeService,
     AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,

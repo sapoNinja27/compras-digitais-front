@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-import { stringify } from 'json5';
+import { CidadeDTO } from 'src/models/cidade.dto';
+import { ClienteNewDTO } from 'src/models/cliente.new.dto';
+import { EstadoDTO } from 'src/models/estado.dto';
+import { CidadeService } from 'src/services/domain/cidade.service';
+import { ClienteService } from 'src/services/domain/cliente.service';
+import { EstadoService } from 'src/services/domain/estado.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,14 +14,34 @@ import { stringify } from 'json5';
 })
 export class SignupPage implements OnInit {
 
-  constructor( public menu: MenuController) { }
-  tipo:string= "Cpf";
+  constructor( public menu: MenuController,
+    public estadoService:EstadoService,
+    public cidadeService:CidadeService,
+    public clienteService:ClienteService) { }
   tam:number=14;
-  cpfOuCnpjInput:String="";
-  cep:String="";
+  estadoSelected:string;
+  cidadeSelected:string;
+  tipo:string="Cpf"
+  estados:EstadoDTO;
+  cidades:CidadeDTO;
+  clienteNewDto:ClienteNewDTO={
+    nome:"",
+    email:"",
+    senha:"",
+    cpfOuCnpj:"",
+    tipo:1,
+    cep:"",
+    logradouro:"",
+    cidadeId:"",
+    numero:"",
+    complemento:"",
+    estado:"",
+    bairro:"",
+    telefone1:""
 
+};
   change(i:number){
-    this.cpfOuCnpjInput= "";
+    this.clienteNewDto.cpfOuCnpj= "";
     if(i==1){
       this.tipo="Cpf";
       this.tam=14;
@@ -26,15 +51,15 @@ export class SignupPage implements OnInit {
     }
   }
   formatarCep(value:string){
-    this.cep ="";
+    this.clienteNewDto.cep ="";
     value =  ""+value.replace(/[^0-9]+/g, "");
     if(value.length>5){
       value=value.substring(0,5)+"-"+value.substring(5);
     }
-    this.cep=value;
+    this.clienteNewDto.cep=value;
   }
   formatarDoc(value:string){
-    this.cpfOuCnpjInput ="";
+    this.clienteNewDto.cpfOuCnpj ="";
     value =  ""+value.replace(/[^0-9]+/g, "");
     if(this.tipo=="Cpf"){
       if(value.length>2){
@@ -60,14 +85,50 @@ export class SignupPage implements OnInit {
         value=value.substring(0,15)+"-"+value.substring(15);
       }
     }
-    this.cpfOuCnpjInput=value;
+    this.clienteNewDto.cpfOuCnpj=value;
   }
   ngOnInit() {
+    this.estadoService.findAll()
+      .subscribe(response =>{
+        this.estados=response;
+      },
+      error=>{})
+     
+  }
+  updateCidades(value:string){
+    this.estadoService.findById(value)
+      .subscribe(response =>{
+        this.clienteNewDto.estado=response.nome;
+      },
+      error=>{})
+    this.cidadeService.findById(value)
+    .subscribe(response =>{
+      this.cidades=response;
+    },
+    error=>{})
   }
   ionViewDidLeave() {
     this.menu.enable(true);
   }
   ionViewWillEnter() {
     this.menu.enable(false);
+  }
+  signupUser(){
+    if(this.tipo="Cpf"){
+      this.clienteNewDto.tipo=1;
+    }else if(this.tipo="Cnpj"){
+      this.clienteNewDto.tipo=2;
+    }
+    this.clienteNewDto.cpfOuCnpj =  ""+this.clienteNewDto.cpfOuCnpj.replace(/[^0-9]+/g, "");
+    console.log(this.clienteNewDto)
+    this.clienteService.addCliente(this.clienteNewDto)
+    .subscribe(response =>{
+      console.log("ok")
+    },error=>{
+    });
+  }
+  adicionarCidade(value:string){
+    console.log(value)
+    this.clienteNewDto.cidadeId=value;
   }
 }

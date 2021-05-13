@@ -26,15 +26,16 @@ export class ErrorInterceptor implements HttpInterceptor{
                         if( !error.status ){
                             error = JSON.parse(error);
                         }
+                        let listMsg=error.errors;
                         error=JSON.stringify(error);
                         let msgs=error.split('"');
-                        let msg=""
+                        let msg="";
                         for(let i = 0; i<msgs.length;i++){
                             if(msgs[i] == "message"){
                                 msg= msgs[i+2];
                             }
                         }
-                        console.log(status+': '+msg);
+                        // console.log(status+': '+msg);
                         switch(status){
                             case 401: 
                                 this.handle401();
@@ -46,6 +47,10 @@ export class ErrorInterceptor implements HttpInterceptor{
 
                             case 404: 
                                 this.handle404();
+                            break;
+
+                            case 422: 
+                                this.handle422(listMsg);
                             break;
 
                             default:
@@ -87,7 +92,7 @@ export class ErrorInterceptor implements HttpInterceptor{
     }
     async handle404(){
         let alert=this.alertCtrl.create({
-            header: 'Serciço indisponivel',
+            header: 'Serviço indisponivel',
             message: 'Voce esta tentando acessar algo que não existe ou nao esta disponivel no momento, por favor tente mais tarde',
             backdropDismiss: false,
             buttons:[
@@ -96,6 +101,39 @@ export class ErrorInterceptor implements HttpInterceptor{
                     handler: () => {
                         this.router.navigateByUrl("/profile");
                     }
+                }
+            ]
+        });
+        (await alert).present();
+    }
+    async handle422(msg){
+        let numErrors=msg.length;
+        let newMessage:string="";
+        msg=JSON.stringify(msg);
+        msg=msg.split('"');
+        for(let i=0;i<msg.length;i++){
+            if(msg[i]=="fieldName"){
+                if(newMessage==""){
+                    newMessage="Campo: "+msg[i+2]+": "+msg[i+6];
+                }else{
+                    newMessage = newMessage+","+"</br>"+ "Campo: "+msg[i+2]+" "+msg[i+6];
+                }
+            }
+        }
+        let nome="Erro de validação"
+        if(numErrors>1){
+            nome="Erros de validação"
+        }
+        let alert=this.alertCtrl.create({
+            header: nome,
+            message: newMessage,
+            backdropDismiss: false,
+            buttons:[
+                {
+                    text:'Aceitar',
+                    handler: () => {
+                     
+                    }  
                 }
             ]
         });
