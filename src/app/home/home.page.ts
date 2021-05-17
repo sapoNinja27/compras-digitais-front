@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
      public auth: AuthService,
      private router: Router) { }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     this.menu.enable(true);
   }
   ionViewDidEnter() {

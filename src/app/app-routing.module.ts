@@ -22,6 +22,18 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'produtos',
+    loadChildren: () => import('./produtos/produtos.module').then( m => m.ProdutosPageModule)
+  },
+  {
+    path: 'produto-detail',
+    loadChildren: () => import('./produto-detail/produto-detail.module').then( m => m.ProdutoDetailPageModule)
+  },
+  {
+    path: 'carrinho',
+    loadChildren: () => import('./carrinho/carrinho.module').then( m => m.CarrinhoPageModule)
   }
 ];
 

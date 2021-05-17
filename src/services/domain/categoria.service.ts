@@ -12,4 +12,7 @@ export class CategoriaService{
     findAll() : Observable<CategoriaDTO[]>{
         return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`);
     }
+    findById(id:string) : Observable<CategoriaDTO>{
+        return this.http.get<CategoriaDTO>(`${API_CONFIG.baseUrl}/categorias/${id}`);
+    }
 }

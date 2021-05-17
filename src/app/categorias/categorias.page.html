@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item  button   *ngFor="let item of itens; let i = index">
+    <ion-item  button (click)="goCategoria(item.id)"  *ngFor="let item of itens; let i = index">
         <ion-thumbnail slot="start">
           <img src="{{bucketUrl}}">
           <!-- "{{bucketUrl}}/cat/{{item.id}}.jpg" -->

@@ -1,0 +1,26 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar class="tollbar" >
+    <ion-buttons slot="start">
+      <ion-button  (click)="goBack()">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{cat?.nome}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item  button (click)="goProduto(item.id)"  *ngFor="let item of itens; let i = index">
+        <ion-thumbnail slot="start">
+          <img src="{{bucketUrl}}">
+          <!-- "{{bucketUrl}}/cat/{{item.id}}.jpg" -->
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{item?.nome}}</p>
+          <p>{{item?.preco|currency:'R$'}}</p>
+        </ion-label>
+        
+      </ion-item>
+  </ion-list>
+</ion-content>

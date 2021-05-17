@@ -1,0 +1,23 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar class="tollbar" >
+    <ion-buttons slot="start">
+      <ion-button  (click)="goBack()">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{prod?.nome}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <img class="circle"  src="{{prod?.imageUrl}}">
+        <ion-card-header >{{prod?.nome}}</ion-card-header>
+        <ion-card-content>
+          <p>Preço: {{prod?.preco|currency:'R$'}}</p>
+          <p>Descrição: Novo</p>
+        </ion-card-content>
+    <ion-button expand="block" (click)="adicionarCarrinho(prod?.id)" >Adicionar ao carrinho</ion-button>
+    
+  </ion-card>
+</ion-content>

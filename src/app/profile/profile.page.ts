@@ -11,19 +11,18 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class ProfilePage implements OnInit {
   cliente : ClienteDTO;
-  sourceImg:string;
   constructor(public storage: StorageService,
     public clienteService: ClienteService ) { }
 
   ngOnInit() {
-    this.sourceImg="assets/avatar-blank.jpg";
     let localUser=this.storage.getLocalUser();
     if(localUser && localUser.email){
       this.clienteService.findByEmail(localUser.email)
       .subscribe(response =>{
         this.cliente=response;
         //TODO buscar imagem
-        // getImageIfExists();
+        this.cliente.imageUrl="assets/avatar-blank.jpg";
+        // this.getImageIfExists();
       },
       error=>{})
     }
@@ -31,8 +30,8 @@ export class ProfilePage implements OnInit {
   getImageIfExists(){
     this.clienteService.getImageFromBucket(this.cliente.id)
     .subscribe(response=>{
-      this.cliente.imageUrl=`${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
-      this.sourceImg=this.cliente.imageUrl;
+      // this.cliente.imageUrl=`${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
+      this.cliente.imageUrl="assets/avatar-blank.jpg";
     },
     error=>{
 
