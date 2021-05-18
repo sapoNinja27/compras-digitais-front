@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController} from '@ionic/angular';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
 import { AuthService } from 'src/services/auth.service';
+import { CartService } from 'src/services/cart-service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomePage implements OnInit {
     email:"",
     senha:""
   };
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(private activatedRoute: ActivatedRoute,
+    public cartService: CartService,
      public menu: MenuController,
      public auth: AuthService,
      private router: Router) { }
@@ -29,6 +31,7 @@ export class HomePage implements OnInit {
         .subscribe(response=>{
           this.auth.successfulLogin(response.headers.get("Authorization"))
           this.router.navigateByUrl("/categorias");
+          this.cartService.esvaziarCarrinho();
         })
     }
   }
@@ -41,6 +44,7 @@ export class HomePage implements OnInit {
       .subscribe(response=>{
         this.auth.successfulLogin(response.headers.get("Authorization"))
         this.router.navigateByUrl("/categorias");
+        this.cartService.esvaziarCarrinho();
       })
   }
   signup(){

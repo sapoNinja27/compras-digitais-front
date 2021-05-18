@@ -11,14 +11,7 @@ ion-menu-button{
 img{
     width: 100px;
 }
-ion-label{
-    width: 350px;
-}
-.update{
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-}
+
 .qnt{
     display: block;
     padding-left: 3px;
@@ -27,17 +20,15 @@ ion-label{
 }
 .trash{
     --background: #eb445a ;
-    padding-left: 10px;
+    padding-left: 3px;
 }
+
 .variadores{
     width: 25px;
     height: 25px;
 }
 .alert{
-    display: block;
-    margin-left: 50px;
-    margin-right: 50px;
-    padding-bottom: 50px;
+    text-align: center;
 }
 .cart{
     display: block;
@@ -47,9 +38,15 @@ ion-label{
 }
 .msg{
     padding-top: 20px;
-    display: block;
-    margin-left: 40px;
-    margin-right:40px;
+    text-align: center;
     font-size: 10px;
     font-weight:bold;
+}
+.buttons{
+    display: flex;
+    flex-direction: row-reverse;
+    width:60%;
+}
+.total{
+    width:140%;
 }

@@ -1,0 +1,27 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar class="tollbar" >
+    <ion-buttons slot="start">
+      <ion-button  (click)="goBack()">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Escolher endereço</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h1>Selecione o endereço a ser entregue o seu pedido:</h1>
+  <ion-list>
+    <ion-radio-group name="tipo" required>
+      <ion-item *ngFor="let end of enderecos; let i = index">
+        <ion-label >
+          <h2>{{end.cidade.nome}}, {{end.cidade.estado.nome}}</h2>
+          <p>Logradouro: {{end.logradouro}}, {{end.numero}}</p>
+          <p>Bairro: {{end.bairro}}</p>
+          <p>Cep: {{end.cep}}</p>
+        </ion-label>
+        <ion-radio (click)="change(end)"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+    </ion-list>
+    <ion-button expand="block" [disabled]="checkValid()" (click)="pagamento()">Forma de pagamento</ion-button>
+</ion-content>

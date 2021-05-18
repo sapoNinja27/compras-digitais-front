@@ -32,14 +32,16 @@
         </ion-button>
       </ion-item>
       <ion-item>
-        <h2 *ngIf="!carrinhoVazio()">Total: {{total|currency:'R$'}}</h2>
-        <ion-button *ngIf="!carrinhoVazio()" class="update" (click)="atualizar()" >
-          <ion-icon name="refresh"></ion-icon>
-        </ion-button>
-       
-        
+        <h2 class="total" *ngIf="!carrinhoVazio()">Total: {{total|currency:'R$'}}</h2>
+        <div class="buttons">
+          <ion-button *ngIf="!carrinhoVazio()" class="trash" (click)="esvaziarCarrinho()" >
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="!carrinhoVazio()" class="update" (click)="atualizar()" >
+            <ion-icon name="refresh"></ion-icon>
+          </ion-button></div>
       </ion-item>
-      <ion-button *ngIf="!carrinhoVazio()" expand="block" (click)="finalizarCompra()" >Finalizar Compra</ion-button>
+      <ion-button *ngIf="!carrinhoVazio()" expand="block" (click)="finalizarCompra()" >Finalizar Pedido</ion-button>
       <ion-button *ngIf="!carrinhoVazio()" expand="block" (click)="continuarComprando()" >Continuar Comprando</ion-button>
       <ion-button *ngIf="carrinhoVazio()" expand="block" (click)="continuarComprando()" >Ver Categorias</ion-button>
     </ion-list>

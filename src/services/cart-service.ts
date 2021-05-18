@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { StorageService } from "./storage.service";
-import { JwtHelperService  } from '@auth0/angular-jwt';
-import { CartItem } from "src/models/cart-item";
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Cart } from "src/models/cart";
+import { CartItem } from "src/models/cart-item";
+import { StorageService } from "./storage.service";
 
 @Injectable()
 export class CartService{
@@ -29,5 +29,8 @@ export class CartService{
         let cartLimpo=this.storage.getCarrinho();
         this.storage.setCarrinho(this.storage.removeVazio(cartLimpo));
         return this.storage.getCarrinho();
+    }
+    esvaziarCarrinho(){
+        this.storage.setCarrinho(null);
     }
 }

@@ -32,6 +32,11 @@ export class StorageService{
     setCarrinho(obj:Cart){
         if(obj != null){
             localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(obj));
+        }else{
+            let newCart:Cart={
+                itens:[]
+            }
+            localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(newCart));
         }
     }
     addItemCarrinho(obj: CartItem) {

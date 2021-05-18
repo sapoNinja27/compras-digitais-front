@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { Cart } from 'src/models/cart';
 import { CartItem } from 'src/models/cart-item';
-import { ProdutoDTO } from 'src/models/produto.dto';
 import { CartService } from 'src/services/cart-service';
 
 @Component({
@@ -14,7 +14,8 @@ export class CarrinhoPage implements OnInit {
   carrinho:Cart=this.cartService.getCarrinho();
   total:number=0;
   constructor(public cartService:CartService,
-  public router: Router) { }
+  public router: Router,
+  public menu:MenuController) { }
   atualizarTotal(){
     this.total=0;
     this.carrinho.itens.forEach(item => {
@@ -50,11 +51,17 @@ export class CarrinhoPage implements OnInit {
     this.carrinho=this.cartService.getCarrinho();
     this.atualizarTotal()
   }
+  esvaziarCarrinho(){
+    this.cartService.esvaziarCarrinho();
+    this.carrinho=this.cartService.getCarrinho();
+    this.atualizarTotal()
+  }
   finalizarCompra(){
-    //TODO finalizar compra
+    this.menu.enable(false);
+    this.router.navigateByUrl("/pick-adress"); 
   }
   carrinhoVazio():boolean{
-    if(this.total==0){
+    if(this.carrinho.itens[0]==null){
       return true;
     }
     return false;
