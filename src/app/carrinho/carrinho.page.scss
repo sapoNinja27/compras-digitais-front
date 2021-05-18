@@ -14,3 +14,42 @@ img{
 ion-label{
     width: 350px;
 }
+.update{
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+.qnt{
+    display: block;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 13px;
+}
+.trash{
+    --background: #eb445a ;
+    padding-left: 10px;
+}
+.variadores{
+    width: 25px;
+    height: 25px;
+}
+.alert{
+    display: block;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-bottom: 50px;
+}
+.cart{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    size: 200px;
+}
+.msg{
+    padding-top: 20px;
+    display: block;
+    margin-left: 40px;
+    margin-right:40px;
+    font-size: 10px;
+    font-weight:bold;
+}

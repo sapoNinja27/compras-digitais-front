@@ -10,20 +10,37 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of itens.itens; let i = index">
+    <h2 *ngIf="carrinhoVazio()" class="alert" margin-left>Seu carrinho esta vazio!</h2>
+    <img *ngIf="carrinhoVazio()" class="cart" src="assets/cart.png" alt="logo">
+    <h2 *ngIf="carrinhoVazio()" class="msg" margin-left>Clique em "VER CATEGORIAS" para iniciar suas compras</h2>
+    <ion-item *ngFor="let item of carrinho.itens; let i = index">
         <ion-thumbnail slot="start">
-          <img src="{{bucketUrl}}">
+          <img src="{{item.produto.imageUrl}}">
         </ion-thumbnail>
         <ion-label>
           <p>{{item.produto.nome}}</p>
         </ion-label>
-        <ion-button>-</ion-button>
-        <p>{{item.quantidade}}</p>
-        <ion-button>+</ion-button>
+        <ion-button class="variadores" (click)="removerItem(item)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+        <p class="qnt">{{item.quantidade}}</p>
+        <ion-button class="variadores" (click)="adicionarItem(item)">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+        <ion-button class="trash" (click)="removerTudo(item)">
+          <ion-icon name="trash-bin"></ion-icon>
+        </ion-button>
       </ion-item>
       <ion-item>
-        <h2>Total: {{total|currency:'R$'}}</h2>
+        <h2 *ngIf="!carrinhoVazio()">Total: {{total|currency:'R$'}}</h2>
+        <ion-button *ngIf="!carrinhoVazio()" class="update" (click)="atualizar()" >
+          <ion-icon name="refresh"></ion-icon>
+        </ion-button>
+       
+        
       </ion-item>
-      <ion-button expand="block" (click)="finalizarCompra()" >Finalizar Compra</ion-button>
-  </ion-list>
+      <ion-button *ngIf="!carrinhoVazio()" expand="block" (click)="finalizarCompra()" >Finalizar Compra</ion-button>
+      <ion-button *ngIf="!carrinhoVazio()" expand="block" (click)="continuarComprando()" >Continuar Comprando</ion-button>
+      <ion-button *ngIf="carrinhoVazio()" expand="block" (click)="continuarComprando()" >Ver Categorias</ion-button>
+    </ion-list>
 </ion-content>

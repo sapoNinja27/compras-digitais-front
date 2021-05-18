@@ -19,7 +19,15 @@ export class CartService{
     getCarrinho():Cart{
         return this.storage.getCarrinho();
     }
-    remover(){
-
+    remover(cartItem:CartItem){
+        this.storage.removeItemCarrinho(cartItem);
+    }
+    removerTodos(cartItem:CartItem){
+        this.storage.removeTodosItemCarrinho(cartItem);
+    }
+    getCarrinhoLimpo():Cart{
+        let cartLimpo=this.storage.getCarrinho();
+        this.storage.setCarrinho(this.storage.removeVazio(cartLimpo));
+        return this.storage.getCarrinho();
     }
 }

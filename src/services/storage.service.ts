@@ -29,6 +29,11 @@ export class StorageService{
             return JSON.parse(cart);
         }
     }
+    setCarrinho(obj:Cart){
+        if(obj != null){
+            localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(obj));
+        }
+    }
     addItemCarrinho(obj: CartItem) {
         let cart:Cart={
             itens:[]
@@ -55,5 +60,52 @@ export class StorageService{
                 localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(cart));
             }
         }
+    }
+    removeTodosItemCarrinho(obj: CartItem) {
+        let cart:Cart={
+            itens:[]
+        }
+        let cartStorage=this.getCarrinho();
+            for(let i=0; i<cartStorage.itens.length;i++){
+                if(cartStorage.itens[i].produto.id==obj.produto.id){
+                    cartStorage.itens[i].quantidade=0;
+                }
+            }
+
+            cart=this.removeVazio(cartStorage);
+            if(obj != null){
+                localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(cart));
+            }
+    }
+    removeVazio(cartOld: Cart):Cart{
+        let cartNew:Cart={
+            itens:[]
+        }
+        cartOld.itens.forEach(cartItem => {
+            if(cartItem.quantidade>0){
+                cartNew.itens.push(cartItem);
+            }
+        });
+        return cartNew;
+    }
+    removeItemCarrinho(obj: CartItem) {
+        let cart:Cart={
+            itens:[]
+        }
+        let cartStorage=this.getCarrinho();
+        let repetido:boolean=false;
+            for(let i=0; i<cartStorage.itens.length;i++){
+                if(cartStorage.itens[i].produto.id==obj.produto.id){
+                    cartStorage.itens[i].quantidade--;
+                    if(cartStorage.itens[i].quantidade<0){
+                        cartStorage.itens[i].quantidade=0;
+                    }
+                    repetido=true;
+                }
+            }
+            cart.itens=cartStorage.itens;
+            if(obj != null){
+                localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(cart));
+            }
     }
 }

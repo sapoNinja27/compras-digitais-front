@@ -46,7 +46,8 @@ export class ProdutoDetailPage implements OnInit {
     let newProd:ProdutoDTO={
       id:this.prod.id,
       nome:this.prod.nome,
-      preco:this.prod.preco
+      preco:this.prod.preco,
+      imageUrl:this.prod.imageUrl
     }
     let carItem:CartItem={
       quantidade:1,
