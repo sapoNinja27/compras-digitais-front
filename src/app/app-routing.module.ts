@@ -38,6 +38,18 @@ const routes: Routes = [
   {
     path: 'pick-adress',
     loadChildren: () => import('./pick-adress/pick-adress.module').then( m => m.PickAdressPageModule)
+  },
+  {
+    path: 'pagamento',
+    loadChildren: () => import('./pagamento/pagamento.module').then( m => m.PagamentoPageModule)
+  },
+  {
+    path: 'confirmacao',
+    loadChildren: () => import('./confirmacao/confirmacao.module').then( m => m.ConfirmacaoPageModule)
+  },
+  {
+    path: 'pedido-concluido',
+    loadChildren: () => import('./pedido-concluido/pedido-concluido.module').then( m => m.PedidoConcluidoPageModule)
   }
 ];
 

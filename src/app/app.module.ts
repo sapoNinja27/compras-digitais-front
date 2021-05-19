@@ -19,6 +19,8 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ProdutoService } from 'src/services/domain/produto.service';
 import { CartService } from 'src/services/cart-service';
+import { PageHelperService } from 'src/services/page.helper.service';
+import { PedidoService } from 'src/services/domain/pedido.service';
 
 registerLocaleData(localePt, 'pt');
 @NgModule({
@@ -49,7 +51,9 @@ registerLocaleData(localePt, 'pt');
     AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
+    PedidoService,
     CartService,
+    PageHelperService,
     StorageService,
     ClienteService
   ],

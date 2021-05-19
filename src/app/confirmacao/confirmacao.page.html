@@ -1,0 +1,63 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar class="tollbar" >
+    <ion-buttons slot="start">
+      <ion-button  (click)="goBack()">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Confirmar Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of carrinho.itens; let i = index">
+        <ion-thumbnail slot="start">
+          <img src="{{item.produto.imageUrl}}">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{item.produto.nome}}</h2>
+          <p >{{item.produto.preco|currency:'R$'}}</p>
+          <p>Quantidade: {{item.quantidade}}</p>
+        </ion-label>
+        <p >{{(item.quantidade*item.produto.preco)|currency:'R$'}}</p>
+      </ion-item>
+      <ion-item >
+        <h2 class="total" >Total: {{total|currency:'R$'}}</h2>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2 class="title">Cliente</h2>
+          <ion-label>
+            <h2>{{cliente?.nome}}</h2>
+            <p >{{cliente?.email}}</p>
+          </ion-label>
+        </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h2 class="title">Endereço de entrega</h2>
+            <ion-label >
+              <h2>{{end?.cidade.nome}}, {{end?.cidade.estado.nome}}</h2>
+              <p>{{end?.logradouro}}, {{end?.numero}}</p>
+              <p>{{end?.bairro}}, {{end?.cep}}</p>
+            </ion-label>
+          </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h2 class="title">Pagamento</h2>
+              <ion-label >
+                <h2>{{pagamento.tipo}}</h2>
+                <p *ngIf="pagamento.tipo=='Pagamento com cartão'">Numero de Parcelas: {{pagamento.parcelas}}</p>
+              </ion-label>
+            </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-button expand="block"  (click)="confirmar()">Confirmar</ion-button>
+</ion-content>

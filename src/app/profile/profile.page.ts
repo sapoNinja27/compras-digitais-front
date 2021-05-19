@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
+import { AuthService } from 'src/services/auth.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { StorageService } from 'src/services/storage.service';
 
@@ -11,11 +12,11 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class ProfilePage implements OnInit {
   cliente : ClienteDTO;
-  constructor(public storage: StorageService,
+  constructor(public authService: AuthService,
     public clienteService: ClienteService ) { }
 
   ngOnInit() {
-    let localUser=this.storage.getLocalUser();
+    let localUser=this.authService.checkUser();
     if(localUser && localUser.email){
       this.clienteService.findByEmail(localUser.email)
       .subscribe(response =>{

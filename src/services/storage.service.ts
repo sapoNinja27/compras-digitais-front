@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { STORAGE_KEYS } from "src/config/storage_keys.config";
 import { Cart } from "src/models/cart";
 import { CartItem } from "src/models/cart-item";
+import { LastPage } from "src/models/last.page";
 import { LocalUser } from "src/models/local_user";
 
 @Injectable()
@@ -112,5 +113,20 @@ export class StorageService{
             if(obj != null){
                 localStorage.setItem(STORAGE_KEYS.cart,JSON.stringify(cart));
             }
+    }
+    getLastPage() : LastPage{
+        let pge = localStorage.getItem(STORAGE_KEYS.lastPage);
+        if(pge==null){
+            return null;
+        }else{
+            return JSON.parse(pge);
+        }
+    }
+    setLastPage(obj: LastPage) {
+        if(obj == null){
+            localStorage.removeItem(STORAGE_KEYS.lastPage);
+        }else{
+            localStorage.setItem(STORAGE_KEYS.lastPage,JSON.stringify(obj));
+        }
     }
 }

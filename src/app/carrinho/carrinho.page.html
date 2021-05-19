@@ -31,13 +31,13 @@
           <ion-icon name="trash-bin"></ion-icon>
         </ion-button>
       </ion-item>
-      <ion-item>
-        <h2 class="total" *ngIf="!carrinhoVazio()">Total: {{total|currency:'R$'}}</h2>
+      <ion-item *ngIf="!carrinhoVazio()">
+        <h2 class="total" >Total: {{total|currency:'R$'}}</h2>
         <div class="buttons">
-          <ion-button *ngIf="!carrinhoVazio()" class="trash" (click)="esvaziarCarrinho()" >
+          <ion-button  class="trash" (click)="esvaziarCarrinho()" >
             <ion-icon name="trash"></ion-icon>
           </ion-button>
-          <ion-button *ngIf="!carrinhoVazio()" class="update" (click)="atualizar()" >
+          <ion-button  class="update" (click)="atualizar()" >
             <ion-icon name="refresh"></ion-icon>
           </ion-button></div>
       </ion-item>

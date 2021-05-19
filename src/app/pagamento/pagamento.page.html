@@ -1,0 +1,32 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar class="tollbar" >
+    <ion-buttons slot="start">
+      <ion-button  (click)="goBack()">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h1>Selecione a forma de pagamento:</h1>
+  <ion-list>
+    <ion-radio-group name="tipo" required>
+      <ion-item>
+        <ion-label >Pagamento com cartão </ion-label>
+        <ion-radio (click)="change(1)"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label >Pagamento com boleto </ion-label>
+        <ion-radio (click)="change(2)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-item *ngIf="formaDePagamento==1">
+      <ion-label  position="stacked">Parcelas</ion-label>
+      <ion-select [(ngModel)]="qntParcelas"  placeholder="1" name="parc" cancelText="Cancelar" okText="Confirmar" interface="action-sheet"  (ngModelChange)="updateParcelas(qntParcelas)">
+        <ion-select-option  *ngFor="let num of parcelas; let i = index" value="{{num}}" >{{num}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    </ion-list>
+    <ion-button expand="block" [disabled]="checkValid()" (click)="confirmar()">Confirmar pedido</ion-button>
+</ion-content>

@@ -15,9 +15,8 @@
       <ion-item *ngFor="let end of enderecos; let i = index">
         <ion-label >
           <h2>{{end.cidade.nome}}, {{end.cidade.estado.nome}}</h2>
-          <p>Logradouro: {{end.logradouro}}, {{end.numero}}</p>
-          <p>Bairro: {{end.bairro}}</p>
-          <p>Cep: {{end.cep}}</p>
+          <p>{{end.logradouro}}, {{end.numero}}</p>
+          <p>{{end.bairro}}, {{end.cep}}</p>
         </ion-label>
         <ion-radio (click)="change(end)"></ion-radio>
         </ion-item>
