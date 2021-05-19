@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Cart } from 'src/models/cart';
 import { ClienteDTO } from 'src/models/cliente.dto';
@@ -75,16 +75,28 @@ export class ConfirmacaoPage implements OnInit {
     }
   }
   confirmar(){
+    this.pedidoDto.cliente.id=this.cliente.id;
     this.pedidoService.insert(this.pedidoDto)
     .subscribe(response =>{
       this.menu.enable(true);
       this.pageHelper.setPage(null);
-      this.router.navigateByUrl("/pedidoConcluido"); 
+      this.cartService.esvaziarCarrinho();
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          special: JSON.stringify(this.extractId(response.headers.get('Location')))
+        }
+      };
+      
+      this.router.navigate(['/pedido-concluido'],navigationExtras); 
+
     },error=>{
-      console.log("pse man")
     });
   }
+  private extractId(location:string):string{
+      let str=location.split("pedidos/");
+      return str[1];
+  }
   goBack(){
-    this.router.navigateByUrl("/pagamento"); 
+    this.router.navigateByUrl("/carrinho"); 
   }
 }

@@ -61,6 +61,6 @@ export class PagamentoPage implements OnInit {
     this.pedidoDto.pagamento.numeroDeParcelas=num;
   }
   goBack(){
-    this.router.navigateByUrl("/pick-adress"); 
+    this.router.navigateByUrl("/carrinho"); 
   }
 }

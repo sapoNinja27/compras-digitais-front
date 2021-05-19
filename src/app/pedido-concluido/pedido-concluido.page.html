@@ -1,13 +1,24 @@
 <ion-header  [translucent]="true">
   <ion-toolbar class="tollbar" >
     <ion-buttons slot="start">
-      <ion-button  (click)="goBack()">
-        <ion-icon name="arrow-undo"></ion-icon>
-      </ion-button>
+      <ion-menu-button>
+        <ion-icon name="menu"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
-    <ion-title>Pagamento</ion-title>
+    <ion-title>Pedido Salvo</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
+<ion-card>
+<ion-card-header>
+  <h2>Seu pedido foi registrado!</h2>
+</ion-card-header>
+<ion-item>
+  <ion-label>
+    <h2>Código do pedido: {{codigo}}</h2>
+    <p>Verifique seu email</p>
+  </ion-label>
+</ion-item>
+</ion-card>
 </ion-content>
+

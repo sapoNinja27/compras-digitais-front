@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { ProdutoDTO } from 'src/models/produto.dto';
 import { CategoriaService } from 'src/services/domain/categoria.service';
@@ -18,7 +19,8 @@ export class ProdutosPage implements OnInit {
     private route: ActivatedRoute,
     public produtoService: ProdutoService,
     public categoriaService: CategoriaService,
-    public router : Router
+    public router : Router,
+    public loadingCtrl:LoadingController
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,12 @@ export class ProdutosPage implements OnInit {
       this.itens=response['content'];
     },
     error=>{});
+  }
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+    await loading.present();
   }
   goProduto(id:string){
     let ext={

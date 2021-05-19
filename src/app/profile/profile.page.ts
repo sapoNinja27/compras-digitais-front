@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { AuthService } from 'src/services/auth.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
-import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-profile',
